@@ -1,39 +1,49 @@
 window.onload = () => {
     const button = document.querySelector('button[data-action="change"]');
     button.innerText = '﹖';
-    console.log("meu ovo");
-    let places = staticLoadPlaces();
-    renderPlaces(places);
+    staticLoadPlaces().then(places => {
+        renderPlaces(places);
+    }).catch(error => {
+        console.error(error);
+    });
 };
 
 function staticLoadPlaces() {
-    return [
-        {
-            name: 'Pokèmon',
-            location: {
-                // decomment the following and add coordinates:
-                lat: -23.324400,
-                lng: -51.155810,
-            },
-        },
-    ];
+    return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                resolve([{
+                    name: 'Pokèmon',
+                    location: {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    },
+                }]);
+            }, error => {
+                reject(error);
+            });
+        } else {
+            reject(new Error("Geolocation is not supported by this browser."));
+        }
+        
+    });
 }
 
 var models = [
     {
-        url: './assets/magnemite/scene.gltf',
+        url: './Assets/magnemite/scene.gltf',
         scale: '0.5 0.5 0.5',
         info: 'Magnemite, Lv. 5, HP 10/10',
         rotation: '0 180 0',
     },
     {
-        url: './assets/articuno/scene.gltf',
+        url: './Assets/articuno/scene.gltf',
         scale: '0.2 0.2 0.2',
         rotation: '0 180 0',
         info: 'Articuno, Lv. 80, HP 100/100',
     },
     {
-        url: './assets/dragonite/scene.gltf',
+        url: './Assets/dragonite/scene.gltf',
         scale: '0.08 0.08 0.08',
         rotation: '0 180 0',
         info: 'Dragonite, Lv. 99, HP 150/150',
