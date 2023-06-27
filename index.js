@@ -1,6 +1,6 @@
 window.onload = () => {
     const button = document.querySelector('button[data-action="change"]');
-    //button.innerText = '﹖';
+    button.innerText = '﹖';
     staticLoadPlaces().then(places => {
         renderPlaces(places);
     }).catch(error => {
@@ -36,17 +36,17 @@ var models = [
         url: './Assets/avocado/Avocado.gltf',
         scale: '10 10 10',
         info: 'Magnemite, Lv. 5, HP 10/10',
-        rotation: '90 0 0',
+        rotation: '0 0 0',
     },
     {
         url: './Assets/articuno/scene.gltf',
-        scale: '1 1 1',
-        rotation: '0 180 0',
+        scale: '10 10 10',
+        rotation: '90 0 90',
         info: 'Articuno, Lv. 80, HP 100/100',
     },
     {
         url: './Assets/dragonite/scene.gltf',
-        scale: '0.08 0.08 0.08',
+        scale: '1 1 1',
         rotation: '0 180 0',
         info: 'Dragonite, Lv. 99, HP 150/150',
     },
