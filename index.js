@@ -1,6 +1,6 @@
 window.onload = () => {
     const button = document.querySelector('button[data-action="change"]');
-    button.innerText = '﹖';
+    //button.innerText = '﹖';
     staticLoadPlaces().then(places => {
         renderPlaces(places);
     }).catch(error => {
@@ -12,6 +12,8 @@ function staticLoadPlaces() {
     return new Promise((resolve, reject) => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
+                console.log(position.coords.latitude);
+                console.log(position.coords.longitude);
                 resolve([{
                     name: 'Pokèmon',
                     location: {
@@ -31,14 +33,14 @@ function staticLoadPlaces() {
 
 var models = [
     {
-        url: './Assets/magnemite/scene.gltf',
-        scale: '0.5 0.5 0.5',
+        url: './Assets/avocado/Avocado.gltf',
+        scale: '10 10 10',
         info: 'Magnemite, Lv. 5, HP 10/10',
-        rotation: '0 180 0',
+        rotation: '90 0 0',
     },
     {
         url: './Assets/articuno/scene.gltf',
-        scale: '0.2 0.2 0.2',
+        scale: '1 1 1',
         rotation: '0 180 0',
         info: 'Articuno, Lv. 80, HP 100/100',
     },
@@ -54,6 +56,7 @@ var modelIndex = 0;
 var setModel = function (model, entity) {
     if (model.scale) {
         entity.setAttribute('scale', model.scale);
+        console.log(model.scale);
     }
 
     if (model.rotation) {
