@@ -33,20 +33,20 @@ function staticLoadPlaces() {
 
 var models = [
     {
-        url: './Assets/avocado/Avocado.gltf',
+        url: './Assets/magnemite/scene.gltf',
         scale: '10 10 10',
         info: 'Magnemite, Lv. 5, HP 10/10',
-        rotation: '0 0 0',
+        rotation: '0 180 0',
     },
     {
         url: './Assets/articuno/scene.gltf',
         scale: '10 10 10',
-        rotation: '90 0 90',
+        rotation: '0 180 0',
         info: 'Articuno, Lv. 80, HP 100/100',
     },
     {
         url: './Assets/dragonite/scene.gltf',
-        scale: '1 1 1',
+        scale: '0.005 0.005 0.005',
         rotation: '0 180 0',
         info: 'Dragonite, Lv. 99, HP 150/150',
     },
