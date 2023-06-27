@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" type="text/css" href="style.css"/>
   <title>AR.js Basic Projected Camera Example</title>
-  <script src='/aframe-ar-nft.js'></script>
 </head>
 <body style='margin : 0px; overflow: hidden;'>
-  <a-scene vr-mode-ui='enabled: false' embedded arjs='sourceType: webcam; debugUIEnabled: false'>
-    <a-camera gps-projected-camera='simulateLatitude: -23.3078784; simulateLongitude: -51.1410176' rotation-reader></a-camera>
-    <a-box gps-projected-entity-place='latitude: -23.3078784; longitude: -51.1410176' material='color: red' scale='10 10 10'></a-box>
-    <a-box gps-projected-entity-place='latitude: -23.3078784; longitude: -51.1410176' material='color: yellow' scale='10 10 10'></a-box>
-    <a-box gps-projected-entity-place='latitude: -23.3078784; longitude: -51.1410176' position='0 10 0' material='color: green' scale='10 10 10'></a-box>
-</a-scene>
+  <div class="centered instructions"></div>
+    <a-scene 
+        vr-mode-ui='enabled: false' 
+        embedded
+        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
+      <a-camera gps-camera rotation-reader></a-camera>
+    </a-scene>
+  <div class="centered">
+    <button data-action="change"></button>
+  </div>
 </body>
 </html>
