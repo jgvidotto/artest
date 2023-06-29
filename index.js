@@ -12,8 +12,6 @@ function staticLoadPlaces() {
     return new Promise((resolve, reject) => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
-                console.log(position.coords.latitude);
-                console.log(position.coords.longitude);
                 resolve([{
                     name: 'Pokèmon',
                     location: {
@@ -34,20 +32,18 @@ function staticLoadPlaces() {
 var models = [
     {
         url: './Assets/magnemite/scene.gltf',
-        scale: '10 10 10',
+        scale: '0.1 0.1 0.1',
         info: 'Magnemite, Lv. 5, HP 10/10',
-        rotation: '0 180 0',
     },
     {
         url: './Assets/articuno/scene.gltf',
-        scale: '10 10 10',
-        rotation: '0 180 0',
+        scale: '0.2 0.2 0.2',
+        animation:'Take 001',
         info: 'Articuno, Lv. 80, HP 100/100',
     },
     {
         url: './Assets/dragonite/scene.gltf',
-        scale: '0.005 0.005 0.005',
-        rotation: '0 180 0',
+        scale: '0.01 0.01 0.01',
         info: 'Dragonite, Lv. 99, HP 150/150',
     },
 ];
@@ -56,15 +52,15 @@ var modelIndex = 0;
 var setModel = function (model, entity) {
     if (model.scale) {
         entity.setAttribute('scale', model.scale);
-        console.log(model.scale);
-    }
-
-    if (model.rotation) {
-        entity.setAttribute('rotation', model.rotation);
     }
 
     if (model.position) {
         entity.setAttribute('position', model.position);
+        console.log(model.position);
+    }
+
+    if (model.animation) {
+        entity.setAttribute('animation-mixer', {clip: model.animation});
     }
 
     entity.setAttribute('gltf-model', model.url);
@@ -80,20 +76,22 @@ function renderPlaces(places) {
         let latitude = place.location.lat;
         let longitude = place.location.lng;
 
-        let model = document.createElement('a-entity');
-        model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
+        let outerEntity = document.createElement('a-entity');
+        outerEntity.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
 
-        setModel(models[modelIndex], model);
+        let modelEntity = document.createElement('a-entity');
+        setModel(models[modelIndex], modelEntity);
 
-        model.setAttribute('animation-mixer', '');
+        modelEntity.setAttribute('animation-mixer', '');
+        modelEntity.setAttribute("look-at", "[gps-new-camera]");
 
         document.querySelector('button[data-action="change"]').addEventListener('click', function () {
-            var entity = document.querySelector('[gps-entity-place]');
             modelIndex++;
             var newIndex = modelIndex % models.length;
-            setModel(models[newIndex], entity);
+            setModel(models[newIndex], modelEntity);
         });
 
-        scene.appendChild(model);
+        outerEntity.appendChild(modelEntity);
+        scene.appendChild(outerEntity);
     });
 }
