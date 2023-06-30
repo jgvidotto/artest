@@ -15,7 +15,7 @@ function staticLoadPlaces() {
                 resolve([{
                     name: 'Pokèmon',
                     location: {
-                        lat: position.coords.latitude,
+                        lat: position.coords.latitude ,
                         lng: position.coords.longitude,
                     },
                 }]);
@@ -33,17 +33,20 @@ var models = [
     {
         url: './Assets/magnemite/scene.gltf',
         scale: '0.1 0.1 0.1',
+        position: '1 1.5 -3.5',
         info: 'Magnemite, Lv. 5, HP 10/10',
     },
     {
         url: './Assets/articuno/scene.gltf',
         scale: '0.2 0.2 0.2',
         animation:'Take 001',
+        position: '0 1 0',
         info: 'Articuno, Lv. 80, HP 100/100',
     },
     {
         url: './Assets/dragonite/scene.gltf',
         scale: '0.01 0.01 0.01',
+        position: '1 1.5 -3.5',
         info: 'Dragonite, Lv. 99, HP 150/150',
     },
 ];
@@ -54,9 +57,13 @@ var setModel = function (model, entity) {
         entity.setAttribute('scale', model.scale);
     }
 
+    if (model.rotation) {
+        entity.setAttribute('rotation', model.rotation);
+        console.log(model.rotation);
+    }
+
     if (model.position) {
         entity.setAttribute('position', model.position);
-        console.log(model.position);
     }
 
     if (model.animation) {
@@ -77,8 +84,9 @@ function renderPlaces(places) {
         let longitude = place.location.lng;
 
         let outerEntity = document.createElement('a-entity');
+        console.log(latitude);
+        console.log(longitude);
         outerEntity.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-
         let modelEntity = document.createElement('a-entity');
         setModel(models[modelIndex], modelEntity);
 
